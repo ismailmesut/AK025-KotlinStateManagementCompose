@@ -1,5 +1,6 @@
 package com.ismailmesutmujde.kotlinstatemanagementcompose
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -17,6 +18,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -41,6 +44,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@SuppressLint("UnrememberedMutableState")
 @Composable
 fun MainScreen() {
     Surface(color = Color.LightGray) {
@@ -49,22 +53,26 @@ fun MainScreen() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            var myString = "Android Compose"
-            TextField(value = TextFieldValue(text = myString), onValueChange = {
-                myString = it.text
-                println(myString)
+            var myString = remember { mutableStateOf("Android Compose") }
 
+
+            TextField(value = myString.value, onValueChange = {
+                myString.value = it
+                println(myString.value)
             })
 
             Spacer(modifier = Modifier.padding(7.dp))
 
-            var textString = "Hello"
-            Text(text = textString,
+            var textString = remember {
+                mutableStateOf("Hello")
+            }
+
+            Text(text = textString.value,
                 fontSize = 26.sp
                 )
 
             Button(onClick = {
-                textString = "Android"
+                textString.value = "Android"
                 println(textString)
             }) {
                 Text(text = "Button")
