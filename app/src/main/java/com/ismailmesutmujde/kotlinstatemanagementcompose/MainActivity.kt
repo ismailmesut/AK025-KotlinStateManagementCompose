@@ -15,6 +15,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,6 +25,7 @@ import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -46,12 +48,24 @@ fun MainScreen() {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "Hello",
+
+            var myString = "Android Compose"
+            TextField(value = TextFieldValue(text = myString), onValueChange = {
+                myString = it.text
+                println(myString)
+
+            })
+
+            Spacer(modifier = Modifier.padding(7.dp))
+
+            var textString = "Hello"
+            Text(text = textString,
                 fontSize = 26.sp
                 )
 
             Button(onClick = {
-                println("clicked")
+                textString = "Android"
+                println(textString)
             }) {
                 Text(text = "Button")
                 Text(text = "Test")
